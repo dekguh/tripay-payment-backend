@@ -19,7 +19,7 @@ const PAYMENT_API_KEY = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_
 const PAYMENT_PRIVATE_KEY = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_PRIVATE_KEY_PRODUCTION : process.env.TRIPAY_PRIVATE_KEY_TEST
 const PAYMENT_MERCHANT_CODE = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_MERCHANT_CODE_PRODUCTION : process.env.TRIPAY_MERCHANT_CODE_TEST
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('hiks')
 })
 
