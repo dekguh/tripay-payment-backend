@@ -124,6 +124,26 @@ app.post('/buat-pembayaran', async (req, res) => {
     }
 })
 
+/**
+ * docs https://tripay.co.id/developer?tab=transaction-detail
+ * @METHOD POST
+ * @params reference
+ * @return JSON
+ */
+ app.post('/detail-pembayaran', async (req, res) => {
+    try {
+        const { reference } = req.body
+        const response = await axios.get(`${PAYMENT_BASE_URL}transaction/detail?reference=${reference}`, {
+            headers: {
+                Authorization: `Bearer ${PAYMENT_API_KEY}`
+            }
+        })
+        res.json(response.data)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 
 app.listen(PORT, () => {
     console.log(process.env.IS_PRODUCTION == "no")
