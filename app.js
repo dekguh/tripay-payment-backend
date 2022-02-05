@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios')
 const crypto = require('crypto')
+const res = require('express/lib/response')
 require('dotenv').config()
 
 const app = express()
@@ -17,6 +18,10 @@ const PAYMENT_BASE_URL = process.env.IS_PRODUCTION == 'yes' ? 'https://tripay.co
 const PAYMENT_API_KEY = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_API_KEY_PRODUCTION : process.env.TRIPAY_API_KEY_TEST
 const PAYMENT_PRIVATE_KEY = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_PRIVATE_KEY_PRODUCTION : process.env.TRIPAY_PRIVATE_KEY_TEST
 const PAYMENT_MERCHANT_CODE = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_MERCHANT_CODE_PRODUCTION : process.env.TRIPAY_MERCHANT_CODE_TEST
+
+app.post('/', (req, res) => {
+    res.send('hiks')
+})
 
 /**
  * docs https://tripay.co.id/developer?tab=merchant-fee-calculator - https://tripay.co.id/developer?tab=channels
