@@ -7,7 +7,7 @@ const res = require('express/lib/response')
 require('dotenv').config()
 
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000
 
 // apply middleware
 app.use(cors());
@@ -126,6 +126,6 @@ app.post('/buat-pembayaran', async (req, res) => {
 })
 
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(process.env.IS_PRODUCTION == "no")
 })
