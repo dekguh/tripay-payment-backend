@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
  * @params amount - integer
  * @return JSON
  */
-app.post('/kalkulasi-pembayaran', async (req, res) => {
+app.get('/kalkulasi-pembayaran', async (req, res) => {
     try {
         console.log(req.body)
         const { merchant, amount } = req.body
@@ -56,7 +56,7 @@ app.post('/kalkulasi-pembayaran', async (req, res) => {
  * @params allow_html - 1 = true, 0 = false
  * @return JSON
  */
-app.post('/instruksi-pembayaran', async (req, res) => {
+app.get('/instruksi-pembayaran', async (req, res) => {
     try {
         const { merchant, pay_code, amount, allow_html } = req.body
         const response = await axios.get(`${PAYMENT_BASE_URL}payment/instruction?code=${merchant}&pay_code=${pay_code}&amount=${amount}&allow_html=${allow_html}`, {
@@ -74,7 +74,7 @@ app.post('/instruksi-pembayaran', async (req, res) => {
  * docs https://tripay.co.id/developer?tab=transaction-create
  * @return JSON
  */
-app.post('/buat-pembayaran', async (req, res) => {
+app.get('/buat-pembayaran', async (req, res) => {
     try {
         const {
             merchant_ref,
