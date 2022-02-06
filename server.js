@@ -154,6 +154,7 @@ app.post('callback-payment', async (req, res) => {
 
     console.log(signature);
     console.log(json);
+    res.json(json)
 })
 
 app.listen(PORT, () => {
