@@ -146,16 +146,14 @@ app.post('/buat-pembayaran', async (req, res) => {
  * callback when success make payment
  * docs https://tripay.co.id/developer?tab=callback
  */
-app.get('/callback-payment', async (req, res) => {
+app.post('/callback-payment', async (req, res) => {
     var json = req.body
     var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
         .update(json)
         .digest('hex');
 
-    console.log(signature);
-    console.log(json);
-    res.json(json)
-    res.json(signature)
+    console.log(signature)
+    console.log(json)
 })
 
 app.listen(PORT, () => {
