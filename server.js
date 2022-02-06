@@ -19,7 +19,7 @@ const PAYMENT_PRIVATE_KEY = process.env.IS_PRODUCTION == 'yes' ? process.env.TRI
 const PAYMENT_MERCHANT_CODE = process.env.IS_PRODUCTION == 'yes' ? process.env.TRIPAY_MERCHANT_CODE_PRODUCTION : process.env.TRIPAY_MERCHANT_CODE_TEST
 
 app.get('/', (req, res) => {
-    res.send('hiks')
+    res.send('xixixi')
 })
 
 /**
@@ -106,8 +106,6 @@ app.post('/buat-pembayaran', async (req, res) => {
             signature,
         }
 
-        console.log(payload)
-
         const response = await axios.post(`${PAYMENT_BASE_URL}transaction/create`,
             payload,
             {
@@ -144,6 +142,19 @@ app.post('/buat-pembayaran', async (req, res) => {
     }
 })
 
+/**
+ * callback when success make payment
+ * docs https://tripay.co.id/developer?tab=callback
+ */
+app.post('callback-payment', async (req, res) => {
+    const json = request.body;
+    const signature = crypto.createHmac("sha256", apiKey)
+        .update(json)
+        .digest('hex');
+
+    console.log(signature);
+    console.log(json);
+})
 
 app.listen(PORT, () => {
     console.log(process.env.IS_PRODUCTION == "no")
