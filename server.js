@@ -148,7 +148,7 @@ app.post('/buat-pembayaran', async (req, res) => {
  */
 app.post('callback-payment', async (req, res) => {
     const json = request.body;
-    const signature = crypto.createHmac("sha256", apiKey)
+    const signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
         .update(json)
         .digest('hex');
 
