@@ -147,8 +147,8 @@ app.post('/buat-pembayaran', async (req, res) => {
  * docs https://tripay.co.id/developer?tab=callback
  */
 app.post('/callback-payment', async (req, res) => {
-    const json = req.body;
-    const signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
+    var json = req.body;
+    var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
         .update(json)
         .digest('hex');
 
