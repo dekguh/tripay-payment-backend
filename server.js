@@ -147,16 +147,26 @@ app.post('/buat-pembayaran', async (req, res) => {
  * docs https://tripay.co.id/developer?tab=callback
  */
 app.post('/callback-payment', async (req, res) => {
-    var json = req.body
-    var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
-        .update(JSON.stringify(json))
-        .digest('hex');
+    try {
+        var json = req.body
+        var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
+            .update(JSON.stringify(json))
+            .digest('hex');
 
-    const findSignatureHeader = req.rawHeaders.find(data => data == signature)
-    if(findSignatureHeader != signature) res.json({
-        status: false,
-        message: 'signature not valid'
-    })
+        const findSignatureHeader = req.rawHeaders.find(data => data == signature)
+        console.log(findSignatureHeader)
+        if(findSignatureHeader != signature) return res.json({
+            status: false,
+            message: 'signature not valid'
+        })
+
+        const getDetailPesanan = await axios.post(`${process.env.REDICS_API_BASE_URL}get-pesanan-by-payment-reference`, {
+            payment_reference: json.reference
+        })
+        return res.send(getDetailPesanan || null)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 app.listen(PORT, () => {})
