@@ -149,11 +149,10 @@ app.post('/buat-pembayaran', async (req, res) => {
 app.post('/callback-payment', (req, res) => {
     var json = req.body
     var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
-        .update(json)
+        .update(JSON.stringify(json))
         .digest('hex');
 
-    res.json(json)
-    console.log(json)
+    console.log(signature)
 })
 
 app.listen(PORT, () => {
