@@ -153,6 +153,7 @@ app.post('/callback-payment', async (req, res) => {
         .digest('hex');
 
     const findSignatureHeader = req.rawHeaders.find(data => data == signature)
+    console.log(signature == findSignatureHeader)
     if(findSignatureHeader != signature) return res.json({
         status: false,
         message: 'signature not valid'
@@ -162,9 +163,7 @@ app.post('/callback-payment', async (req, res) => {
         payment_reference: json.reference
     })
 
-    res.json(getDetailPesanan)
+    return res.json(getDetailPesanan)
 })
 
-app.listen(PORT, () => {
-    console.log(process.env.IS_PRODUCTION == "no")
-})
+app.listen(PORT, () => {})
