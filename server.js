@@ -163,7 +163,7 @@ app.post('/callback-payment', async (req, res) => {
         payment_reference: json.reference
     })
 
-    return res.json(getDetailPesanan)
+    return res.json(JSON.stringify(getDetailPesanan))
 })
 
 app.listen(PORT, () => {})
