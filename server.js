@@ -152,10 +152,12 @@ app.post('/callback-payment', (req, res) => {
         .update(JSON.stringify(json))
         .digest('hex');
 
+    const findSignatureHeader = req.rawHeaders.find(data => data == signature)
+
     res.json({
         json,
         signature: signature,
-        validSignature: req.rawHeaders.find(data => data == signature),
+        validSignature: findSignatureHeader == signature,
     })
 })
 
