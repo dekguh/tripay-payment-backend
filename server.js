@@ -158,8 +158,11 @@ app.post('/callback-payment', async (req, res) => {
         message: 'signature not valid'
     })
 
-    res.json(json)
-    
+    const getDetailPesanan = await axios.post(`${process.env.REDICS_API_BASE_URL}get-pesanan-by-payment-reference`, {
+        payment_reference: json.reference
+    })
+
+    res.json(getDetailPesanan)
 })
 
 app.listen(PORT, () => {
