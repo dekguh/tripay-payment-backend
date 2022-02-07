@@ -163,7 +163,6 @@ app.post('/callback-payment', async (req, res) => {
         const getDetailPesanan = await axios.post(`${process.env.REDICS_API_BASE_URL}get-pesanan-by-payment-reference`, {
             payment_reference: json.reference
         })
-        return res.send(getDetailPesanan || null)
     } catch (err) {
         console.log(err)
     }
