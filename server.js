@@ -152,7 +152,7 @@ app.post('/callback-payment', (req, res) => {
         .update(JSON.stringify(json))
         .digest('hex');
 
-    res.json(json)
+    res.json({ json, signature: signature })
 })
 
 app.listen(PORT, () => {
