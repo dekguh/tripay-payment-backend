@@ -152,7 +152,12 @@ app.post('/callback-payment', (req, res) => {
         .update(JSON.stringify(json))
         .digest('hex');
 
-    res.json({ json, signature: signature, validSignature: req.headers['X-Callback-Signature'] == signature })
+    res.json({
+        json,
+        signature: signature,
+        validSignature: req.headers['X-Callback-Signature'] == signature,
+        signatureHeaders: req.headers['X-Callback-Signature']
+    })
 })
 
 app.listen(PORT, () => {
