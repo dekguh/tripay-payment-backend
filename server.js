@@ -155,8 +155,8 @@ app.post('/callback-payment', (req, res) => {
     res.json({
         json,
         signature: signature,
-        validSignature: req.headers['X-Callback-Signature'] == signature,
-        signatureHeaders: req.headers['X-Callback-Signature']
+        validSignature: req.get['X-Callback-Signature'] == signature,
+        signatureHeaders: req.get['X-Callback-Signature']
     })
 })
 
