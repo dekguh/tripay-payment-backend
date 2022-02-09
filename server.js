@@ -171,15 +171,71 @@ app.post('/callback-payment', async (req, res) => {
             payment_reference: json.reference
         })
 
-        // check jika reference sama
+        // check jika reference tidak sama
         if(!getDetailPesanan) return res.json({
             status: false,
             message: 'reference tidak valid'
         })
 
-        res.json({
-            json,
-            detail: getDetailPesanan.data
+        // update expired
+        if(json && json.status == 'EXPIRED') {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+                payment_reference: json.reference,
+                data: {
+                    statusPemesanan: 'dibatalkan'
+                }
+            })
+            return res.json({
+                status: true,
+                message: updateStatusPayment.data
+            })
+        }
+
+        // update paid
+        if(json && json.status == 'PAID') {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+                payment_reference: json.reference,
+                data: {
+                    statusPemesanan: 'menunggu dikirim'
+                }
+            })
+            return res.json({
+                status: true,
+                message: updateStatusPayment.data
+            })
+        }
+
+        // update UNPAID
+        if(json && json.status == 'UNPAID') {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+                payment_reference: json.reference,
+                data: {
+                    statusPemesanan: 'menunggu pembayaran'
+                }
+            })
+            return res.json({
+                status: true,
+                message: updateStatusPayment.data
+            })
+        }
+
+        // update expired
+        if(json && json.status == 'FAILED') {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+                payment_reference: json.reference,
+                data: {
+                    statusPemesanan: 'dibatalkan'
+                }
+            })
+            return res.json({
+                status: true,
+                message: updateStatusPayment.data
+            })
+        }
+
+        return res.json({
+            status: false,
+            message: 'no response'
         })
     } catch (err) {
         return res.json({
