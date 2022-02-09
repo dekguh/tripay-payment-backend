@@ -164,7 +164,7 @@ app.post('/callback-payment', async (req, res) => {
         })
         res.json({
             json,
-            detail: getDetailPesanan
+            detail: getDetailPesanan.data
         })
     } catch (err) {
         console.log(err)
