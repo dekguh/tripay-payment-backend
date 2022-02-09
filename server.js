@@ -182,7 +182,10 @@ app.post('/callback-payment', async (req, res) => {
             detail: getDetailPesanan.data
         })
     } catch (err) {
-        console.log(err)
+        return res.json({
+            status: false,
+            message: 'reference tidak valid'
+        })
     }
 })
 
