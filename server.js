@@ -150,24 +150,33 @@ app.post('/callback-payment', async (req, res) => {
     try {
         var json = req.body
 
+        // check json jika kosong
         if(!json) return res.json({
             status: false,
             message: 'json failed'
         })
 
+        // signature not valid
         var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
             .update(JSON.stringify(json))
             .digest('hex');
-
         const findSignatureHeader = req.rawHeaders.find(data => data == signature)
         if(findSignatureHeader != signature) return res.json({
             status: false,
             message: 'signature not valid'
         })
 
+        // get detail pesanan
         const getDetailPesanan = json && await axios.post(`${process.env.REDICS_API_BASE_URL}get-pesanan-by-payment-reference`, {
             payment_reference: json.reference
         })
+
+        // check jika reference sama
+        if(getDetailPesanan.payment_reference != json.reference) return res.json({
+            status: false,
+            message: 'reference tidak valid'
+        })
+
         res.json({
             json,
             detail: getDetailPesanan.data
