@@ -172,7 +172,7 @@ app.post('/callback-payment', async (req, res) => {
         })
 
         // check jika reference sama
-        if(getDetailPesanan.payment_reference != json.reference) return res.json({
+        if(!getDetailPesanan) return res.json({
             status: false,
             message: 'reference tidak valid'
         })
