@@ -149,6 +149,12 @@ app.post('/buat-pembayaran', async (req, res) => {
 app.post('/callback-payment', async (req, res) => {
     try {
         var json = req.body
+
+        if(!json) return res.json({
+            status: false,
+            message: 'json failed'
+        })
+
         var signature = crypto.createHmac("sha256", PAYMENT_PRIVATE_KEY)
             .update(JSON.stringify(json))
             .digest('hex');
