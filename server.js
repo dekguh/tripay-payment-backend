@@ -240,7 +240,7 @@ app.post('/callback-payment', async (req, res) => {
     } catch (err) {
         return res.json({
             status: false,
-            message: 'reference tidak valid'
+            message: 'error'
         })
     }
 })
