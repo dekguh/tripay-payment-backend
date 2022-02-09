@@ -153,17 +153,11 @@ app.post('/callback-payment', async (req, res) => {
             .update(JSON.stringify(json))
             .digest('hex');
 
-        const findSignatureHeader = req.rawHeaders.find(data => data == signature)
-        if(findSignatureHeader != signature) return res.json({
-            status: false,
-            message: 'signature not valid'
-        })
 
         const getDetailPesanan = await axios.post(`${process.env.REDICS_API_BASE_URL}get-pesanan-by-payment-reference`, {
             payment_reference: json.reference
         })
         res.json({
-            json,
             detail: getDetailPesanan.data
         })
     } catch (err) {
