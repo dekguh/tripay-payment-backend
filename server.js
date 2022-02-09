@@ -154,13 +154,12 @@ app.post('/callback-payment', async (req, res) => {
             .digest('hex');
 
         const findSignatureHeader = req.rawHeaders.find(data => data == signature)
-        console.log(findSignatureHeader)
         if(findSignatureHeader != signature) return res.json({
             status: false,
             message: 'signature not valid'
         })
 
-        
+        res.json(json)
     } catch (err) {
         console.log(err)
     }
