@@ -179,7 +179,7 @@ app.post('/callback-payment', async (req, res) => {
 
         // update expired
         if(json && json.status == 'EXPIRED') {
-            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-pesanan-by-payment-reference`, {
                 payment_reference: json.reference,
                 data: {
                     statusPemesanan: 'dibatalkan'
@@ -193,7 +193,7 @@ app.post('/callback-payment', async (req, res) => {
 
         // update paid
         if(json && json.status == 'PAID') {
-            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-pesanan-by-payment-reference`, {
                 payment_reference: json.reference,
                 data: {
                     statusPemesanan: 'menunggu dikirim'
@@ -205,9 +205,9 @@ app.post('/callback-payment', async (req, res) => {
             })
         }
 
-        // update UNPAID
+        // update unpaid
         if(json && json.status == 'UNPAID') {
-            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-pesanan-by-payment-reference`, {
                 payment_reference: json.reference,
                 data: {
                     statusPemesanan: 'menunggu pembayaran'
@@ -219,9 +219,9 @@ app.post('/callback-payment', async (req, res) => {
             })
         }
 
-        // update expired
+        // update failed
         if(json && json.status == 'FAILED') {
-            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-payment-reference`, {
+            const updateStatusPayment = await axios.put(`${process.env.REDICS_API_BASE_URL}update-pesanan-by-payment-reference`, {
                 payment_reference: json.reference,
                 data: {
                     statusPemesanan: 'dibatalkan'
